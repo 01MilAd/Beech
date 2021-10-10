@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <h2>Profile</h2>
+    {% if self_pro %}
+    <a href="{% url 'profile:add_profile' %}">Profile settings</a>
+    {% endif %}
+    <center><h3>{{ user.username|capfirst }}</h3></center>
+    <center><img src="{{ user.profile.avator.url }}"  width="100px" height="100px"></center>
+    {% if user.first_name and user.last_name %}
+    <center><h3>{{ user.first_name|title  }} {{ user.last_name|title  }}</h3></center>
+    {% endif %}
+    <center><h4>{{ user.profile.bio }}</h4></center>
+<hr>
+{% for story in stories %}
+    <div style="display:inline-block">
+        <span>{{ story.title|title }}</span> | <small>{{ story.created|date }}</small>
+        {% if self_pro %}
+        <a href="{% url 'story:edit_story' story.id %}">Edit</a> /
+        <a href="{% url 'story:delete_story' story.id %}">Delete</a>
+        {% endif %}
+        <br><br>
+    {% if story.sound %}
+        <audio style="display:block;" controls>
+            <source src="{{ story.sound.url }}" type="audio/mp3">
+        </audio>
+        <br>
+    {% else %}
+        <p>Your browser does not support the audio element.</p>
+    {% endif %}
+    {% if story.cover %}
+    <img style="display:block;" src="{{ story.cover.url }}" alt="{{ story.title }}" width="300px" height="300px">
+    {% endif %}
+        <p>{{ story.caption|capfirst }}</p>
+    </div>
+{% endfor %}
+{% endblock %}

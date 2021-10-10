@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %} Beech {% endblock %}</title>
+</head>
+<body>
+{% include 'inc/navbar.html' %}
+{% include 'inc/messages.html' %}
+{% block content %}{% endblock %}
+</body>
+</html>

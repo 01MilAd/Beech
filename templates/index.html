@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Homepage</h2>
+{% for story in stories %}
+    <div style="display:inline-block">
+        <a href="{% url 'profile:profile' story.user.id %}">{{ story.user }}</a> | <small>{{ story.created|date }}</small>
+        <p>{{ story.title|title }}</p>
+    {% if story.sound %}
+        <audio controls>
+            <source src="{{ story.sound.url }}" type="audio/mp3">
+        </audio>
+    {% else %}
+        <p>Your browser does not support the audio element.</p>
+    {% endif %}
+    {% if story.cover %}
+        <img style="display:block;" src="{{ story.cover.url }}" alt="{{ story.title }}" width="300px" height="300px">
+    {% endif %}
+        <p>{{ story.caption|capfirst }}</p>
+    </div>
+{% endfor %}
+{% endblock %}
