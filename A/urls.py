@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
+from api.urls import router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,8 +26,9 @@ urlpatterns = [
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('', include('profiles.urls', namespace='profile')),
     path('', include('story.urls', namespace='story')),
-    path('api', include('api.urls', namespace='api')),
-    path('api-auth/', include('rest_framework.urls')),
+    # path('api/', include('api.urls', namespace='api')),
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api-token-auth/', obtain_auth_token),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

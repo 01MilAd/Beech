@@ -1,4 +1,8 @@
-from django.urls import path
+from rest_framework import routers
 
-app_name = 'api'
-urlpatterns = []
+from api.views import StoryViewSet, ProfileViewSet
+
+router = routers.SimpleRouter()
+router.register('stories', StoryViewSet, basename='api_story')
+router.register('profiles', ProfileViewSet, basename='api_profile')
+
